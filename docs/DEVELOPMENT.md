@@ -105,7 +105,6 @@ docs/                            документация
 4. GitHub Actions (`.github/workflows/release.yml`) сам проверит, что метка совпадает с `VERSION`, соберёт zip через `tools/make-release.ps1` и создаст релиз.
 
 Собрать zip локально (для проверки): `powershell -ExecutionPolicy Bypass -File tools\make-release.ps1` → `dist/`.
-Пошагово для первого раза — [PUBLISHING.md](PUBLISHING.md).
 
 ## Проверка перед релизом
 
