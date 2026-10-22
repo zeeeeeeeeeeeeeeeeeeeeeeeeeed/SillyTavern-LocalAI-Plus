@@ -1,0 +1,62 @@
+name: "🐞 Ошибка / Bug report"
+description: "Что-то работает не так / Something doesn't work"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Спасибо, что сообщаешь об ошибке! Сначала загляни в раздел «Если что-то не работает» в README — возможно, решение уже есть.
+        Thanks for reporting! Please check the Troubleshooting section of the README first.
+  - type: textarea
+    id: what
+    attributes:
+      label: "Что случилось / What happened"
+      description: "Что делал и что увидел. Скриншот очень помогает. / What you did and what you saw. A screenshot helps a lot."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Что ожидал / What you expected"
+  - type: input
+    id: localai
+    attributes:
+      label: "Версия local.ai+ / local.ai+ version"
+      description: "Файл VERSION в архиве / The VERSION file in the archive"
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: sillytavern
+    attributes:
+      label: "Версия SillyTavern / SillyTavern version"
+      description: "Видна вверху на главной странице SillyTavern / Shown at the top of the SillyTavern home page"
+      placeholder: "1.19.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: "Где ошибка / Where"
+      options:
+        - "Установка / Installer"
+        - "Меню и окна / Layout"
+        - "Каталог: chub.ai / Catalog: chub.ai"
+        - "Каталог: Pygmalion / Catalog: Pygmalion"
+        - "Каталог: RisuRealm / Catalog: RisuRealm"
+        - "Генератор персоны / Persona generator"
+        - "Мастер настроек / Setup wizard"
+        - "Перевод интерфейса / Translation"
+        - "Телефон / Phone"
+        - "Другое / Other"
+  - type: input
+    id: device
+    attributes:
+      label: "Система и браузер / OS and browser"
+      placeholder: "Windows 11, Chrome / Android, Chrome"
+  - type: textarea
+    id: console
+    attributes:
+      label: "Консоль браузера / Browser console"
+      description: "F12 → вкладка Console → скопируй красные строки (если есть) / F12 → Console tab → copy the red lines (if any)"
+      render: text

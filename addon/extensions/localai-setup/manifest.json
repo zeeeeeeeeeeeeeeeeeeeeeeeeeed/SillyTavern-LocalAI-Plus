@@ -1,0 +1,12 @@
+{
+    "display_name": "local.ai+ · Setup wizard / Мастер настроек",
+    "loading_order": 140,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "",
+    "author": "local.ai+",
+    "version": "1.0.0",
+    "homePage": "",
+    "auto_update": false
+}

@@ -1,0 +1,15 @@
+name: "💡 Идея / Feature request"
+description: "Предложить улучшение или новую функцию / Suggest an improvement"
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: "Идея / Idea"
+      description: "Что хочется и зачем. Если это есть на character.ai — можно приложить скриншот. / What you want and why. A character.ai screenshot is welcome."
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Как сейчас приходится делать / Current workaround"

@@ -1,0 +1,39 @@
+# Проверка при каждом push и pull request: переводы, синтаксис JS и скриптов установщика
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Locales are complete
+        run: node tools/check-locales.mjs
+
+      - name: JavaScript syntax
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem addon -Recurse -Include *.js, *.mjs
+          foreach ($f in $files) {
+            node --check $f.FullName
+            if ($LASTEXITCODE -ne 0) { throw "Syntax error in $($f.FullName)" }
+          }
+
+      - name: Installer scripts parse
+        shell: powershell
+        run: |
+          $files = Get-ChildItem installer, tools -Recurse -Include *.ps1, *.psd1
+          foreach ($f in $files) {
+            $errors = $null
+            [Management.Automation.Language.Parser]::ParseFile($f.FullName, [ref]$null, [ref]$errors) | Out-Null
+            if ($errors) { throw "$($f.Name): $($errors[0].Message)" }
+          }

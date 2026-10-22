@@ -1,0 +1,634 @@
+/* ==========================================================================
+   local.ai+ — внешний вид в стиле character.ai для SillyTavern
+   Часть 1: тема (цвета, сообщения, поле ввода, мобильная вёрстка чата)
+   Часть 2: раскладка (меню слева, настройки окном по центру)
+   Цвета — переменные --cai-* в :root ниже.
+   ========================================================================== */
+
+
+:root {
+    --cai-bg: #18181b;          /* фон страницы */
+    --cai-panel: #202024;       /* панели и меню */
+    --cai-bubble: #26272b;      /* сообщение персонажа */
+    --cai-bubble-user: #303136; /* твоё сообщение */
+    --cai-border: #2e2f34;
+    --cai-text: #e4e4e7;
+    --cai-muted: #a1a1aa;
+    --cai-accent: #ffffff;
+    --cai-radius: 18px;
+    --cai-font: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ---------- Общий фон и шрифт ---------- */
+body, #sheld, #chat, #form_sheld {
+    font-family: var(--cai-font) !important;
+}
+body {
+    background: var(--cai-bg) !important;
+}
+#bg1, #bg_custom {
+    background-image: none !important;
+    background-color: var(--cai-bg) !important;
+}
+#chat, #sheld {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+#chat {
+    padding: 12px 8px 4px !important;
+}
+
+/* ---------- Выдвижные панели настроек ---------- */
+.drawer-content, #right-nav-panel, #left-nav-panel, .popup, #floatingPrompt, #cfgConfig {
+    background-color: var(--cai-panel) !important;
+    backdrop-filter: none !important;
+    border: 1px solid var(--cai-border) !important;
+    border-radius: 14px !important;
+}
+
+/* ---------- Сообщения ---------- */
+.mes {
+    background: transparent !important;
+    border: none !important;
+    padding: 6px 4px !important;
+    align-items: flex-start;
+}
+.mes .avatar img, .mes .avatar {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50% !important;
+}
+.mes_block {
+    max-width: 100%;
+}
+.mes .ch_name .name_text {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: var(--cai-text) !important;
+}
+.mes .mes_text {
+    background: var(--cai-bubble);
+    border-radius: 4px var(--cai-radius) var(--cai-radius) var(--cai-radius);
+    padding: 12px 16px !important;
+    margin-top: 4px;
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+    color: var(--cai-text) !important;
+}
+.mes .mes_text p {
+    margin: 0 0 .7em;
+}
+.mes .mes_text p:last-child {
+    margin-bottom: 0;
+}
+/* *действия* — курсив приглушённым цветом, «речь» — ярче, как на c.ai */
+.mes .mes_text em, .mes .mes_text i {
+    color: #b4b4bd !important;
+}
+.mes .mes_text q {
+    color: var(--cai-accent) !important;
+    font-weight: 400 !important;
+}
+
+/* Твои сообщения — справа, без аватарки, другим цветом */
+.mes[is_user="true"] {
+    flex-direction: row-reverse;
+}
+.mes[is_user="true"] .mesAvatarWrapper {
+    display: none !important;
+}
+.mes[is_user="true"] .mes_block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.mes[is_user="true"] .ch_name {
+    display: none !important;
+}
+.mes[is_user="true"] .mes_text {
+    background: var(--cai-bubble-user);
+    border-radius: var(--cai-radius) 4px var(--cai-radius) var(--cai-radius);
+    max-width: 85%;
+}
+
+/* Кнопки под сообщением (перелистывание вариантов) — компактные и серые */
+.swipe_left, .swipe_right {
+    color: var(--cai-muted) !important;
+    opacity: .8;
+}
+.swipes-counter {
+    color: var(--cai-muted) !important;
+    font-size: 12px !important;
+}
+.mes_buttons .mes_button {
+    color: var(--cai-muted) !important;
+}
+/* Скрыты кнопки, которым нужны отсутствующие в сборке сервисы:
+   рисование (Stable Diffusion), озвучка (TTS),
+   вложения картинок (модель SAINEMO их не видит) и переключатели вида медиа.
+   Перевод (Google Translate на русский) оставлен. */
+.mes_button.sd_message_gen,
+.mes_button.mes_narrate,
+.mes_button.mes_embed,
+.mes_button.mes_media_gallery,
+.mes_button.mes_media_list {
+    display: none !important;
+}
+
+/* ---------- Поле ввода внизу — «таблетка» как на c.ai ---------- */
+#form_sheld {
+    background: transparent !important;
+    padding: 6px 8px 10px !important;
+}
+#send_form {
+    background: var(--cai-bubble) !important;
+    border: 1px solid var(--cai-border) !important;
+    border-radius: 26px !important;
+    backdrop-filter: none !important;
+    padding: 4px 6px !important;
+    box-shadow: none !important;
+}
+#send_textarea {
+    background: transparent !important;
+    color: var(--cai-text) !important;
+    font-size: 15px !important;
+    font-family: var(--cai-font) !important;
+}
+#send_textarea::placeholder {
+    color: var(--cai-muted) !important;
+}
+/* Белая круглая кнопка отправки */
+#send_but {
+    background: var(--cai-accent) !important;
+    color: #18181b !important;
+    border-radius: 50% !important;
+    width: 34px !important;
+    height: 34px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px !important;
+    opacity: 1 !important;
+}
+#leftSendForm > div, #rightSendForm > div:not(#send_but) {
+    color: var(--cai-muted) !important;
+}
+
+/* ---------- Список персонажей — карточки с круглыми аватарками ---------- */
+#rm_print_characters_block .character_select,
+#rm_print_characters_block .group_select {
+    border-radius: 12px !important;
+    padding: 8px !important;
+    margin: 2px 0 !important;
+}
+#rm_print_characters_block .character_select:hover {
+    background: var(--cai-bubble) !important;
+}
+#rm_print_characters_block .avatar img {
+    border-radius: 50% !important;
+}
+.ch_name, .character_name_block .ch_name {
+    font-weight: 600;
+}
+
+/* ---------- Кнопки и поля в меню ---------- */
+.menu_button {
+    border-radius: 10px !important;
+    background-color: var(--cai-bubble) !important;
+    border: 1px solid var(--cai-border) !important;
+}
+.menu_button:hover {
+    background-color: #33343a !important;
+}
+input.text_pole, textarea.text_pole, select.text_pole, select {
+    background-color: var(--cai-bg) !important;
+    border: 1px solid var(--cai-border) !important;
+    border-radius: 10px !important;
+}
+
+/* Меню ☰ слева от поля ввода */
+#options .options-content {
+    background: var(--cai-panel) !important;
+    border: 1px solid var(--cai-border) !important;
+    border-radius: 14px !important;
+    backdrop-filter: none !important;
+}
+
+/* Тонкая полоса прокрутки */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 3px; }
+
+/* ---------- Телефон ---------- */
+@media (max-width: 1000px) {
+    .mes .mes_text {
+        font-size: 15px !important;
+        padding: 10px 13px !important;
+    }
+    .mes[is_user="true"] .mes_text {
+        max-width: 90%;
+    }
+    /* Аватарка рядом с именем, сообщение на всю ширину — как в мобильном c.ai */
+    .mes:not([is_user="true"]) {
+        position: relative;
+    }
+    .mes:not([is_user="true"]) .mesAvatarWrapper {
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        z-index: 1;
+    }
+    .mes:not([is_user="true"]) .mesAvatarWrapper .avatar,
+    .mes:not([is_user="true"]) .mesAvatarWrapper .avatar img {
+        width: 26px !important;
+        height: 26px !important;
+    }
+    .mes:not([is_user="true"]) .ch_name {
+        padding-left: 34px;
+        min-height: 26px;
+        align-items: center;
+    }
+    .mes:not([is_user="true"]) .mes_block {
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+    }
+    #send_but {
+        width: 36px !important;
+        height: 36px !important;
+    }
+}
+
+/* ==========================================================================
+   Часть 2: раскладка
+   ========================================================================== */
+
+/* Раскладка character.ai: меню слева, настройки окном по центру */
+
+body.cai-layout {
+    --cai-side: 248px;
+    --cai-side-bg: #18181b;
+}
+body.cai-layout.cai-collapsed {
+    --cai-side: 0px;
+}
+
+/* ---------- Верхняя полоса SillyTavern: кнопки скрыты, панели остаются ---------- */
+body.cai-layout #top-bar {
+    display: none !important;
+}
+body.cai-layout #top-settings-holder {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: none !important;
+}
+body.cai-layout #top-settings-holder > .drawer > .drawer-toggle,
+body.cai-layout #top-settings-holder > .cl-toolbar-button {
+    display: none !important;
+}
+
+/* ---------- Чат: справа от меню, колонкой по центру ---------- */
+body.cai-layout #sheld {
+    top: 0 !important;
+    left: var(--cai-side) !important;
+    right: 0 !important;
+    margin: 0 auto !important;
+    width: min(780px, calc(100vw - var(--cai-side) - 48px)) !important;
+    height: 100dvh !important;
+    transition: left .2s;
+}
+
+/* ---------- Боковое меню ---------- */
+.cai-sidebar {
+    display: none;
+}
+body.cai-layout .cai-sidebar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    /* высота явно: мобильные стили SillyTavern ломают растягивание через top/bottom */
+    height: 100vh;
+    height: 100dvh;
+    width: 248px;
+    z-index: 3002;
+    background: var(--cai-side-bg);
+    border-right: 1px solid var(--cai-border, #2e2f34);
+    padding: 14px 10px 10px;
+    box-sizing: border-box;
+    font-family: var(--cai-font, sans-serif);
+    color: var(--cai-text, #e4e4e7);
+    transition: transform .2s;
+}
+body.cai-layout.cai-collapsed .cai-sidebar {
+    transform: translateX(-100%);
+}
+.cai-brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 6px 12px;
+}
+.cai-logo {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+.cai-icon-btn {
+    background: none;
+    border: none;
+    color: var(--cai-muted, #a1a1aa);
+    font-size: 15px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.cai-icon-btn:hover {
+    background: var(--cai-bubble, #26272b);
+    color: var(--cai-text, #e4e4e7);
+}
+.cai-create {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    background: var(--cai-bubble, #26272b);
+    color: var(--cai-text, #e4e4e7);
+    border: 1px solid var(--cai-border, #2e2f34);
+    border-radius: 22px;
+    padding: 9px 18px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+.cai-create:hover {
+    background: #303136;
+}
+.cai-sidebar-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0 -4px;
+    padding: 0 4px;
+    scrollbar-width: thin;
+}
+.cai-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.cai-nav-item, .cai-chat, .cai-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--cai-text, #e4e4e7);
+    text-align: left;
+    font-size: 14px;
+    padding: 9px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.cai-nav-item i {
+    color: var(--cai-muted, #a1a1aa);
+    width: 18px;
+    text-align: center;
+}
+.cai-nav-item:hover, .cai-chat:hover, .cai-user:hover {
+    background: var(--cai-bubble, #26272b);
+}
+.cai-chat.active {
+    background: var(--cai-bubble-user, #303136);
+}
+.cai-settings {
+    display: none;
+    padding-left: 14px;
+}
+.cai-sidebar.cai-settings-open .cai-settings {
+    display: flex;
+}
+.cai-group-chevron {
+    margin-left: auto;
+    font-size: 11px;
+    transition: transform .15s;
+}
+.cai-sidebar.cai-settings-open .cai-group-chevron {
+    transform: rotate(180deg);
+}
+.cai-settings .cai-nav-item {
+    padding: 7px 10px;
+    font-size: 13px;
+}
+.cai-search {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 12px 0 6px;
+    background: var(--cai-bubble, #26272b) !important;
+    border: 1px solid var(--cai-border, #2e2f34) !important;
+    border-radius: 10px !important;
+    color: var(--cai-text, #e4e4e7);
+    padding: 8px 12px;
+    font-size: 13px;
+}
+.cai-section {
+    font-size: 12px;
+    color: var(--cai-muted, #a1a1aa);
+    padding: 12px 10px 4px;
+}
+.cai-chat {
+    padding: 6px 10px;
+}
+.cai-chat-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #2a2a2f;
+}
+.cai-chat-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.cai-empty {
+    font-size: 12px;
+    color: var(--cai-muted, #a1a1aa);
+    padding: 6px 10px;
+}
+.cai-user {
+    margin-top: 6px;
+    border-top: 1px solid var(--cai-border, #2e2f34);
+    border-radius: 0 0 10px 10px;
+    padding-top: 12px;
+}
+.cai-user-chevron {
+    color: var(--cai-muted, #a1a1aa);
+    font-size: 11px;
+}
+
+/* Кнопка «развернуть меню», когда оно свёрнуто (на ПК) */
+body.cai-layout.cai-collapsed .cai-mobilebar {
+    display: flex !important;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 3001;
+    width: auto;
+    background: none;
+    border: none;
+}
+body.cai-layout.cai-collapsed .cai-mobilebar .fa-bars {
+    background: var(--cai-bubble, #26272b);
+}
+body.cai-layout.cai-collapsed .cai-mobilebar .cai-mobile-title,
+body.cai-layout.cai-collapsed .cai-mobilebar .fa-compass {
+    display: none;
+}
+
+/* ---------- Окна настроек по центру (как «Общедоступный профиль» на c.ai) ---------- */
+.cai-backdrop {
+    display: none;
+}
+body.cai-layout .cai-backdrop {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 3004;
+    background: rgba(0, 0, 0, .62);
+}
+body.cai-layout.cai-modal-open .cai-backdrop,
+body.cai-layout.cai-sidebar-open .cai-backdrop {
+    display: block;
+}
+body.cai-layout #top-settings-holder .drawer-content.openDrawer {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%) !important;
+    width: min(920px, calc(100vw - 48px)) !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: 86dvh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    margin: 0 !important;
+    padding: 18px 22px 22px !important;
+    border-radius: 16px !important;
+    background: var(--cai-panel, #202024) !important;
+    border: 1px solid var(--cai-border, #2e2f34) !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .55) !important;
+    box-sizing: border-box;
+}
+.cai-modal-close {
+    display: none;
+}
+body.cai-layout .cai-modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    float: right;
+    z-index: 20;
+    width: 34px;
+    height: 34px;
+    margin: -6px -10px 0 8px;
+    border: none;
+    border-radius: 50%;
+    background: var(--cai-bubble, #26272b);
+    color: var(--cai-text, #e4e4e7);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* ---------- Телефон ---------- */
+.cai-mobilebar {
+    display: none;
+}
+@media (max-width: 1000px) {
+    body.cai-layout {
+        --cai-side: 0px;
+    }
+    body.cai-layout .cai-sidebar {
+        width: min(300px, 86vw);
+        z-index: 3006;
+        transform: translateX(-100%);
+        box-shadow: 0 0 40px rgba(0, 0, 0, .6);
+    }
+    body.cai-layout.cai-sidebar-open .cai-sidebar {
+        transform: none;
+    }
+    body.cai-layout .cai-backdrop {
+        z-index: 3004;
+    }
+    body.cai-layout .cai-mobilebar {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 48px;
+        padding: 0 6px;
+        z-index: 3001;
+        background: var(--cai-bg, #18181b);
+        border-bottom: 1px solid var(--cai-border, #2e2f34);
+        box-sizing: border-box;
+    }
+    .cai-mobile-title {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--cai-text, #e4e4e7);
+    }
+    .cai-mobile-title span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    body.cai-layout #sheld {
+        top: 48px !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: calc(100dvh - 48px) !important;
+    }
+    /* Настройки — лист снизу на весь экран по ширине */
+    /* Привязка к низу (bottom: 0) тут не работает — у панелей другая точка отсчёта,
+       поэтому лист задаётся отступом сверху и фиксированной высотой */
+    body.cai-layout #top-settings-holder .drawer-content.openDrawer {
+        top: 7dvh !important;
+        bottom: auto !important;
+        left: 0 !important;
+        transform: none !important;
+        width: 100vw !important;
+        height: 93dvh !important;
+        max-height: 93dvh !important;
+        border-radius: 18px 18px 0 0 !important;
+        padding: 14px 14px 24px !important;
+    }
+    .cai-modal-close {
+        margin: -2px -4px 0 8px;
+    }
+}

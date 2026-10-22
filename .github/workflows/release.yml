@@ -1,0 +1,37 @@
+# Автоматический релиз: push метки vX.Y.Z → сборка zip → страница релиза с описанием из docs/release-notes/vX.Y.Z.md
+name: Release
+
+on:
+  push:
+    tags: ['v*.*.*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Tag matches VERSION
+        shell: powershell
+        run: |
+          $version = (Get-Content VERSION -Raw).Trim()
+          if ("v$version" -ne '${{ github.ref_name }}') { throw "Метка ${{ github.ref_name }} не совпадает с VERSION ($version)" }
+          if (-not (Test-Path "docs/release-notes/${{ github.ref_name }}.md")) { throw "Нет описания релиза docs/release-notes/${{ github.ref_name }}.md" }
+
+      - name: Build zip
+        shell: powershell
+        run: powershell -ExecutionPolicy Bypass -File tools\make-release.ps1
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: local.ai+ ${{ github.ref_name }}
+          body_path: docs/release-notes/${{ github.ref_name }}.md
+          files: dist/*.zip

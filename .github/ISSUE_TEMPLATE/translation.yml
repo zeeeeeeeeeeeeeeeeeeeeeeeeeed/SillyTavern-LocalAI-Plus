@@ -1,0 +1,21 @@
+name: "🌍 Перевод / Translation"
+description: "Помочь с переводом на новый язык или поправить существующий / Help translate local.ai+"
+labels: ["translation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Перевод — это файл `addon/extensions/localai-core/locales/<код>.json` и страница справки `help.<код>.html`. Инструкция — в docs/DEVELOPMENT.md («Как добавить язык»).
+        A translation is one JSON file plus one help page. See docs/DEVELOPMENT.md.
+  - type: input
+    id: language
+    attributes:
+      label: "Язык / Language"
+      placeholder: "日本語 (ja) / 简体中文 (zh)"
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: "Что хочешь сделать / What you'd like to do"
+      description: "Новый язык, исправление ошибок перевода… Можно сразу приложить файл. / New language, fixing mistakes… You can attach the file."

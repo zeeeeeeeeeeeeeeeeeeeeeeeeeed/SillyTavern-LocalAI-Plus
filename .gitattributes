@@ -1,0 +1,15 @@
+# Скрипты Windows должны храниться с переводами строк CRLF, иначе cmd/PowerShell могут их неправильно читать
+*.bat  text eol=crlf
+*.ps1  text eol=crlf
+
+# Остальное — LF
+*.js   text eol=lf
+*.mjs  text eol=lf
+*.css  text eol=lf
+*.html text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+
+*.png  binary
+*.jpg  binary
+*.webp binary

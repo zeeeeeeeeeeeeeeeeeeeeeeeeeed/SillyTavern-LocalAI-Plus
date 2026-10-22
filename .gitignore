@@ -1,0 +1,11 @@
+# сборки релизов
+dist/
+
+# кэш превью плагина (создаётся при работе, если плагин запускали прямо из репозитория)
+addon/plugins/localai-card-sources/thumbs/
+
+# системный мусор
+Thumbs.db
+desktop.ini
+.DS_Store
+*.log
