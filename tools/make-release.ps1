@@ -36,7 +36,7 @@ $dist = Join-Path $root 'dist'
 $stage = Join-Path $dist "localai-plus-v$version"
 if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
 New-Item -ItemType Directory -Force $stage | Out-Null
-foreach ($item in @('install.bat', 'uninstall.bat', 'VERSION', 'README.md', 'CHANGELOG.md', 'LICENSE', 'installer', 'addon', 'docs')) {
+foreach ($item in @('install.bat', 'uninstall.bat', 'VERSION', 'README.md', 'README.en.md', 'CHANGELOG.md', 'LICENSE', 'installer', 'addon', 'docs')) {
     Copy-Item (Join-Path $root $item) $stage -Recurse
 }
 # служебное, которое не должно попасть к пользователю (кэш превью, тяжёлые скриншоты для README)
