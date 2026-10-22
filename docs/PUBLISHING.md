@@ -40,13 +40,9 @@
   `sillytavern` `sillytavern-extension` `character-ai` `roleplay` `ai-chat` `llm` `local-llm` `chub-ai` `character-cards` `russian`
 - Галочки **Releases** — оставь, **Packages** и **Deployments** — можно снять.
 
-## 6. Скриншоты (очень желательно)
+## 6. Скриншоты
 
-Без картинок проект почти никто не попробует.
-
-1. Сними 4 скриншота по инструкции в [docs/screenshots/README.md](screenshots/README.md) и положи их в папку `docs/screenshots`.
-2. В **README.md** и **README.en.md** найди блок, начинающийся со строки `<!-- СКРИНШОТЫ` / `<!-- SCREENSHOTS`, и удали **две строки**: эту первую и последнюю строку блока `-->`.
-3. В GitHub Desktop: Summary `Скриншоты` → **Commit to main** → **Push origin**.
+Уже на месте: `docs/screenshots/` (6 картинок), README их показывает. Чтобы заменить картинку — положи новую с тем же именем (список и советы — в [docs/screenshots/README.md](screenshots/README.md)), затем в GitHub Desktop: Summary `Скриншоты` → **Commit to main** → **Push origin**.
 
 ## 7. Первый релиз (архив для скачивания)
 

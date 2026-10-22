@@ -17,16 +17,17 @@
 
 > Это неофициальное дополнение. Оно не связано с Character.AI и с командой SillyTavern — интерфейс просто сделан «по мотивам».
 
-<!-- СКРИНШОТЫ: положи картинки в docs/screenshots/ (см. docs/PUBLISHING.md) и убери эту строку и строку в конце блока
 <p align="center">
-  <img src="docs/screenshots/main.png" alt="Главный экран" width="49%">
-  <img src="docs/screenshots/catalog.png" alt="Каталог «Узнать»" width="49%">
+  <img src="docs/screenshots/main.webp" alt="Главный экран" width="100%">
 </p>
 <p align="center">
-  <img src="docs/screenshots/settings.png" alt="Окно настроек" width="49%">
-  <img src="docs/screenshots/mobile.png" alt="Телефон" width="24%">
+  <img src="docs/screenshots/catalog.webp" alt="Каталог «Узнать»" width="49%">
+  <img src="docs/screenshots/persona-generator.webp" alt="Генератор персоны" width="49%">
 </p>
--->
+<p align="center">
+  <img src="docs/screenshots/setup-wizard.webp" alt="Мастер настроек" width="58%">
+  <img src="docs/screenshots/mobile-chat.png" alt="Чат на телефоне" width="28%">
+</p>
 
 ---
 

@@ -17,16 +17,17 @@ Installs on top of an existing SillyTavern and turns it into a familiar “chara
 
 > This is an unofficial add-on. It is not affiliated with Character.AI or the SillyTavern team — the interface is just inspired by it.
 
-<!-- SCREENSHOTS: put images into docs/screenshots/ (see docs/PUBLISHING.md) and remove this line and the line at the end of the block
 <p align="center">
-  <img src="docs/screenshots/main.png" alt="Main screen" width="49%">
-  <img src="docs/screenshots/catalog.png" alt="Discover catalog" width="49%">
+  <img src="docs/screenshots/main.webp" alt="Main screen" width="100%">
 </p>
 <p align="center">
-  <img src="docs/screenshots/settings.png" alt="Settings window" width="49%">
-  <img src="docs/screenshots/mobile.png" alt="Phone" width="24%">
+  <img src="docs/screenshots/catalog.webp" alt="Discover catalog" width="49%">
+  <img src="docs/screenshots/persona-generator.webp" alt="Persona generator" width="49%">
 </p>
--->
+<p align="center">
+  <img src="docs/screenshots/setup-wizard.webp" alt="Setup wizard" width="58%">
+  <img src="docs/screenshots/mobile-chat.png" alt="Chat on a phone" width="28%">
+</p>
 
 ---
 
